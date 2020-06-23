@@ -4,7 +4,7 @@ const puppeteer = require('puppeteer');
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://www.missycoupons.com/zero/board.php#id=hotdeals');
-  await page.waitFor(10000);
+  await page.waitFor(5000);
   const itemList = await page.evaluate(() => {
     let scrappedData = [];
     let arr = Array.from(

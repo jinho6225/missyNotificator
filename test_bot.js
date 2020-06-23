@@ -4,8 +4,6 @@ require('dotenv/config');
 const bot = new TelegramBot(process.env.TOKEN, { polling: true });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
-  console.log(msg, 'msg');
-  console.log(match, 'match');
   const chatId = msg.chat.id;
   const resp = `주인님, ${match[1]}`;
 
