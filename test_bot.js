@@ -1,21 +1,11 @@
-const TelegramBot = require('node-telegram-bot-api');
-require('dotenv/config');
+require('dotenv').config();
+const TeleBot = require('telebot');
 
-const bot = new TelegramBot(process.env.TOKEN, { polling: true });
+const bot = new TeleBot(process.env.TOKEN, { polling: true });
 
-bot.onText(/\/echo (.+)/, (msg, match) => {
-  const chatId = msg.chat.id;
-  const resp = `주인님, ${match[1]}`;
-
-  bot.sendMessage(chatId, resp);
+bot.on('text', (msg) => {
+  console.log(msg);
+  msg.reply.text(msg.text);
 });
 
-bot.on('message', (msg) => {
-  const chatId = msg.chat.id;
-  let answer = null;
-  if (msg.text === '반갑다') {
-    answer = '반갑습니다.';
-  }
-
-  bot.sendMessage(chatId, `${answer}`);
-});
+bot.start();
