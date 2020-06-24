@@ -7,19 +7,22 @@ const missyInfo = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://www.missycoupons.com/zero/board.php#id=hotdeals');
-  await page.waitFor(5000);
+  await page.waitFor(10000);
   const itemList = await page.evaluate(() => {
     let scrappedData = '';
     let arr = Array.from(
       document.querySelector('.rp-list-table').childNodes
     ).slice(2);
+    let targetArr = ['생활용품', '출산육아'];
     for (let i = 0; i < arr.length; i++) {
-      scrappedData += `
-      category: ${arr[i].dataset.category}\n
-      merchant: ${arr[i].dataset.merchant}\n
-      subject: ${arr[i].dataset.subject}\n
-      link: https://www.missycoupons.com/zero/board.php#id=hotdeals&no=${arr[i].dataset.no}\n
-      `;
+      if (targetArr.includes(arr[i].dataset.category)) {
+        scrappedData += `
+        category: ${arr[i].dataset.category}\n
+        merchant: ${arr[i].dataset.merchant}\n
+        subject: ${arr[i].dataset.subject}\n
+        link: https://www.missycoupons.com/zero/board.php#id=hotdeals&no=${arr[i].dataset.no}\n
+        `;
+      }
     }
     return scrappedData;
   });
@@ -27,23 +30,30 @@ const missyInfo = async () => {
   return itemList;
 };
 
-bot.on(/\/get (.+)$/, async (msg, props) => {
-  console.log(props.match[1]);
-  const info = await missyInfo();
-  console.log('ready?');
+// bot.on(/\/get (.+)$/, async (msg, props) => {
+//   console.log(props.match[1]);
+//   const info = await missyInfo();
+//   console.log('ready?');
 
-  console.log(info);
-  msg.reply.text(info);
-});
+//   console.log(info);
+//   msg.reply.text(info);
+// });
 
-bot.on(/\/start/, (msg) => {
-  console.log(msg, 'msg');
-  msg.reply.text('hello world!');
-});
+// bot.on(/\/start/, (msg) => {
+//   // console.log(msg, 'msg');
+//   msg.reply.text('hello world!');
+// });
 
+//1070543363
 // const chatId = 626949459;
-// //1070543363
 // const text = "Nice, it's working!";
 // bot.sendMessage(chatId, text);
-
 bot.start();
+
+var schedule = require('node-schedule');
+
+var j = schedule.scheduleJob('*/5 * * * *', async () => {
+  const info = await missyInfo();
+  const chatId = 626949459;
+  bot.sendMessage(chatId, info);
+});
