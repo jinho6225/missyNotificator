@@ -13,12 +13,13 @@ const missyInfo = async () => {
     let arr = Array.from(
       document.querySelector('.rp-list-table').childNodes
     ).slice(2);
-    for (let i = 1; i < arr.length; i++) {
-      scrappedData += `title: ${
-        arr[i].innerText
-      }\n link: https://www.missycoupons.com/zero/${arr[i].childNodes[2]
-        .querySelector('a')
-        .getAttribute('href')}\n`;
+    for (let i = 0; i < arr.length; i++) {
+      scrappedData += `
+      category: ${arr[i].dataset.category}\n
+      merchant: ${arr[i].dataset.merchant}\n
+      subject: ${arr[i].dataset.subject}\n
+      link: https://www.missycoupons.com/zero/board.php#id=hotdeals&no=${arr[i].dataset.no}\n
+      `;
     }
     return scrappedData;
   });
@@ -30,6 +31,8 @@ bot.on(/\/get (.+)$/, async (msg, props) => {
   console.log(props.match[1]);
   const info = await missyInfo();
   console.log('ready?');
+
+  console.log(info);
   msg.reply.text(info);
 });
 

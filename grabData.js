@@ -21,7 +21,9 @@ const puppeteer = require('puppeteer');
     // 반복문으로 <tbody> 내용 객체 형식으로 빈 배열에 추가
     for (let i = 1; i < arr.length; i++) {
       scrappedData.push({
-        i: arr[i].innerText,
+        category: arr[i].dataset.category,
+        no: arr[i].dataset.no,
+        subject: arr[i].dataset.subject,
       });
     }
     return scrappedData;
