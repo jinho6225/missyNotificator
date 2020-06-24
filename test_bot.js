@@ -8,19 +8,27 @@ bot.on('text', (msg) => {
 });
 
 bot.on(/\/start/, (msg) => {
+  console.log(msg);
   msg.reply.text('hello world!');
 });
 
 bot.on(/^\/echo (.+)$/, (msg, props) => {
   const text = props.match[1];
-  console.log(props, 'props');
-  console.log(msg);
   return msg.reply.text(text);
 });
 
-bot.on(/\/m (.+)$/, async (msg, props) => {
-  const info = await fn(props.match[1]);
-  msg.reply.text(info);
-});
+const chatId = 626949459;
+const text = "Nice, it's working!";
+bot.sendMessage(
+  chatId,
+  text
+  // {
+  //   parseMode,
+  //   replyToMessage,
+  //   replyMarkup,
+  //   notification,
+  //   webPreview,
+  // }
+);
 
 bot.start();

@@ -13,7 +13,6 @@ const missyInfo = async () => {
     let arr = Array.from(
       document.querySelector('.rp-list-table').childNodes
     ).slice(2);
-
     for (let i = 1; i < arr.length; i++) {
       scrappedData += `title: ${
         arr[i].innerText
@@ -21,19 +20,8 @@ const missyInfo = async () => {
         .querySelector('a')
         .getAttribute('href')}\n`;
     }
-    console.log(scrappedData);
     return scrappedData;
   });
-
-  //   const fs = require('fs');
-  //   fs.writeFile(
-  //     './Docs/listItem.json',
-  //     JSON.stringify(itemList, null, 2),
-  //     (err) =>
-  //       err
-  //         ? console.error('!!Failed writing file', err)
-  //         : console.log('Successfuly file created!')
-  //   );
   await browser.close();
   return itemList;
 };
@@ -45,5 +33,14 @@ bot.on(/\/get (.+)$/, async (msg, props) => {
   msg.reply.text(info);
 });
 
-bot.on(/\/start/, (msg) => msg.reply.text('hello world!'));
+bot.on(/\/start/, (msg) => {
+  console.log(msg, 'msg');
+  msg.reply.text('hello world!');
+});
+
+// const chatId = 626949459;
+// //1070543363
+// const text = "Nice, it's working!";
+// bot.sendMessage(chatId, text);
+
 bot.start();
