@@ -7,7 +7,7 @@ const missyInfo = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto('https://www.missycoupons.com/zero/board.php#id=hotdeals');
-  await page.waitFor(10000);
+  await page.waitFor(5000);
   const itemList = await page.evaluate(() => {
     let scrappedData = '';
     let arr = Array.from(
@@ -30,30 +30,14 @@ const missyInfo = async () => {
   return itemList;
 };
 
-// bot.on(/\/get (.+)$/, async (msg, props) => {
-//   console.log(props.match[1]);
-//   const info = await missyInfo();
-//   console.log('ready?');
-
-//   console.log(info);
-//   msg.reply.text(info);
-// });
-
-// bot.on(/\/start/, (msg) => {
-//   // console.log(msg, 'msg');
-//   msg.reply.text('hello world!');
-// });
-
-//1070543363
-// const chatId = 626949459;
-// const text = "Nice, it's working!";
-// bot.sendMessage(chatId, text);
 bot.start();
 
 var schedule = require('node-schedule');
 
-var j = schedule.scheduleJob('*/5 * * * *', async () => {
+var j = schedule.scheduleJob('0 15,20,25,30 * * * ?', async () => {
+  console.log('try');
   const info = await missyInfo();
+  console.log('ready?');
   const chatId = 626949459;
   bot.sendMessage(chatId, info);
 });

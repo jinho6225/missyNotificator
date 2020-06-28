@@ -17,8 +17,9 @@ bot.on(/^\/echo (.+)$/, (msg, props) => {
   return msg.reply.text(text);
 });
 
-const chatId = 626949459;
-const text = "Nice, it's working!";
+// const chatId = 626949459;
+const chatId = '-1001491829951';
+const text = 'love you?';
 bot.sendMessage(
   chatId,
   text
@@ -32,3 +33,6 @@ bot.sendMessage(
 );
 
 bot.start();
+
+// https://api.telegram.org/bot1155303534:AAHCNIREMWmFJ8_oV8nlJ0tnP3e4zm3VuWY/sendMessage?chat_id=@jinho6225&text=안녕
+// `https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=@${channerId}&text=안녕`;

@@ -1,10 +1,8 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({
-    headless: false,
-  }); // headless 브라우저 실행
-  const page = await browser.newPage(); // 새로운 페이지 열기
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
   await page.goto('https://www.missycoupons.com/zero/board.php#id=hotdeals');
   await page.waitFor(5000);
   const itemList = await page.evaluate(() => {
@@ -17,8 +15,7 @@ const puppeteer = require('puppeteer');
       if (targetArr.includes(arr[i].dataset.category)) {
         scrappedData += `
         category: ${arr[i].dataset.category}\n
-        merchant: ${arr[i].dataset.merchant}\n
-        subject: ${arr[i].dataset.subject}\n
+        title: ${arr[i].dataset.subject}\n
         link: https://www.missycoupons.com/zero/board.php#id=hotdeals&no=${arr[i].dataset.no}\n
         `;
       }
