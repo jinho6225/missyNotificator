@@ -2,7 +2,9 @@ const puppeteer = require('puppeteer');
 
 (async () => {
   // headless 브라우저 실행
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless : false
+  });
   // 새로운 페이지 열기
   const page = await browser.newPage();
   // `https://ko.reactjs.org/` URL에 접속
