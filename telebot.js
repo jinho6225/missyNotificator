@@ -5,15 +5,9 @@ const bot = new TelegramBot(process.env.TOKEN, { polling: true });
 const schedule = require('node-schedule');
 
 const lgDisplayInfo = async () => {  
-  const browser = await puppeteer.launch({
-    headless : false
-  }); // headless 브라우저 실행
+  const browser = await puppeteer.launch({args: ['--no-sandbox', '--disable-setuid-sandbox']}); // headless 브라우저 실행
 
   const page = await browser.newPage();  // 새로운 페이지 열기
-  await page.setViewport({
-      width: 1920,
-      height: 1080
-  });
 
   // `https://en.wikipedia.org/wiki/React_(web_framework)` URL에 접속
   await page.goto("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=lg+디스플레이");
@@ -35,18 +29,19 @@ const lgDisplayInfo = async () => {
   });
   // 모든 스크래핑 작업을 마치고 브라우저 닫기
   await browser.close();
-  console.log(lgDisInfo)
   return lgDisInfo;
 }
 
-var j = schedule.scheduleJob('0 17,26 * * * ?', async () => {
-    try {
-        const info = await lgDisplayInfo();
-        console.log('ready?');
-        console.log(info, 'info');
-        const chatId = 626949459;
-        bot.sendMessage(chatId, info);
-    } catch (error) {
-        bot.sendMessage(chatId, error);
-    }
+var j = schedule.scheduleJob('0 15,17,26 * * * ?', async () => {
+//var j = schedule.scheduleJob('0 0/5 * * * ?', async () => {
+	try {
+		console.log('try')
+        	const info = await lgDisplayInfo();
+        	console.log('ready?');
+        	const chatId = 626949459;
+        	bot.sendMessage(chatId, info);
+	} catch(err) {
+		console.log(err)
+	}
+
 });
