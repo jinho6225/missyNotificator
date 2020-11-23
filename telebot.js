@@ -32,7 +32,7 @@ const lgDisplayInfo = async () => {
   return lgDisInfo;
 }
 
-var j = schedule.scheduleJob('0 15,17,26 * * * ?', async () => {
+var j = schedule.scheduleJob('0 30 1,7,23 * * ?', async () => {
 //var j = schedule.scheduleJob('0 0/5 * * * ?', async () => {
 	try {
 		console.log('try')
