@@ -9,7 +9,6 @@ const lgDisplayInfo = async () => {
 
   const page = await browser.newPage();  // 새로운 페이지 열기
 
-  // `https://en.wikipedia.org/wiki/React_(web_framework)` URL에 접속
   await page.goto("https://search.naver.com/search.naver?where=nexearch&sm=top_hty&fbm=1&ie=utf8&query=lg+디스플레이");
   await page.waitFor(5000);
 
@@ -31,6 +30,7 @@ const lgDisplayInfo = async () => {
   await browser.close();
   return lgDisInfo;
 }
+
 
 var j = schedule.scheduleJob('0 30 1,7,23 * * ?', async () => {
 //var j = schedule.scheduleJob('0 0/5 * * * ?', async () => {
